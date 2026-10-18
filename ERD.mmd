@@ -1,0 +1,58 @@
+erDiagram
+  Exam {
+INT Id PK
+NVARCHAR Title
+INT TimeLimitMinutes
+BIT IsPublished
+DATETIME2 CreatedAt
+  }
+  QuestionGroup {
+INT Id PK
+INT ExamId FK
+INT Part
+NVARCHAR(MAX) PassageText
+INT OrderIndex
+BIT ShuffleQuestions
+  }
+  Question {
+INT Id PK
+INT ExamId FK
+INT GroupId FK
+INT Part
+INT QuestionNumber
+NVARCHAR(MAX) StemText
+INT GapPosition
+CHAR(1) CorrectOptionKey
+NVARCHAR(MAX) Hint
+BIT ShuffleAnswers
+INT OrderIndex
+  }
+  AnswerOption {
+INT Id PK
+INT QuestionId FK
+CHAR(1) OptionKey
+NVARCHAR(MAX) OptionText
+INT OrderIndex
+  }
+  ExamAttempt {
+INT Id PK
+INT ExamId FK
+NVARCHAR StudentId
+DATETIME2 StartTime
+DATETIME2 EndTime
+INT Score
+  }
+  StudentAnswer {
+INT Id PK
+INT AttemptId FK
+INT QuestionId FK
+CHAR(1) SelectedKey
+DATETIME2 AnsweredAt
+  }
+  Exam ||--o{ QuestionGroup : "1:N"
+  Exam ||--o{ Question : "1:N"
+  Exam ||--o{ ExamAttempt : "1:N"
+  QuestionGroup ||--o{ Question : "1:N"
+  Question ||--o{ AnswerOption : "1:N"
+  Question ||--o{ StudentAnswer : "1:N"
+  ExamAttempt ||--o{ StudentAnswer : "1:N"

@@ -1,0 +1,94 @@
+# ==========================================
+# .NET / C# / Visual Studio
+# ==========================================
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.DotSettings.user
+*.pidb
+*.pdb
+*.VisualState.xml
+
+# ==========================================
+# Flutter / Dart
+# ==========================================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.dill
+*.track.dill
+flutter_*.png
+
+# Android in Flutter
+**/android/local.properties
+**/android/.gradle/
+**/android/captures/
+**/android/gradleBuild/
+**/android/**/build/
+
+# iOS in Flutter
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Pods/
+**/ios/.symlinks/
+
+# Windows in Flutter
+**/windows/flutter/ephemeral/
+
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+
+# ==========================================
+# IDEs & Editors
+# ==========================================
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/libraries
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ==========================================
+# OS & Temp Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+imp_verify.html

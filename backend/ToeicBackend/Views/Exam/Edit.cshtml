@@ -1,0 +1,62 @@
+@model List<Question>
+@{
+    ViewData["Title"] = "Chỉnh sửa đề";
+}
+<h4>Chỉnh sửa nội dung đề — @ViewBag.Title</h4>
+<a href="/Exam" class="btn btn-outline-secondary mb-3">← Danh sách đề</a>
+
+@foreach (var q in Model)
+{
+    var optA = q.Options.FirstOrDefault(o => o.OptionKey == "A")?.OptionText ?? "";
+    var optB = q.Options.FirstOrDefault(o => o.OptionKey == "B")?.OptionText ?? "";
+    var optC = q.Options.FirstOrDefault(o => o.OptionKey == "C")?.OptionText ?? "";
+    var optD = q.Options.FirstOrDefault(o => o.OptionKey == "D")?.OptionText ?? "";
+
+    <form method="post" action="/Exam/Edit" class="card mb-3 p-3 bg-white">
+        <input type="hidden" name="id" value="@ViewBag.ExamId" />
+        <input type="hidden" name="questionNumber" value="@q.QuestionNumber" />
+
+        <div class="fw-bold mb-2">Câu @q.QuestionNumber <span class="badge bg-secondary">Part @q.Part</span></div>
+
+        @if (q.Part != 6)
+        {
+            <div class="mb-2">
+                <label class="form-label small mb-1">Nội dung câu hỏi</label>
+                <textarea name="stem" class="form-control" rows="2">@q.StemText</textarea>
+            </div>
+        }
+
+        <div class="row mb-2">
+            @{
+                var opts = new[] { ("A", optA), ("B", optB), ("C", optC), ("D", optD) };
+            }
+            @foreach (var (k, v) in opts)
+            {
+                <div class="col-md-3">
+                    <label class="form-label small mb-1">Đáp án @k</label>
+                    <input name="option@k" value="@v" class="form-control" />
+                </div>
+            }
+        </div>
+
+        <div class="row mb-2 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label small mb-1">Đáp án đúng</label>
+                <select name="correctKey" class="form-select">
+                    @foreach (var k in new[] { "A", "B", "C", "D" })
+                    {
+                        <option value="@k" selected="@(q.CorrectOptionKey == k)">@k</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-9">
+                <label class="form-label small mb-1">Gợi ý</label>
+                <input name="hint" value="@q.Hint" class="form-control" />
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-sm btn-primary">Lưu câu này</button>
+        </div>
+    </form>
+}

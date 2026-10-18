@@ -1,0 +1,54 @@
+@model PreviewExamDto
+@{
+    ViewData["Title"] = "Xem trước đề thi";
+}
+<h4>Xem trước — @Model.Title</h4>
+<p class="text-muted">
+    ⏱ @Model.TimeLimitMinutes phút · @Model.QuestionCount câu hỏi ·
+    <span class="badge bg-secondary">Chỉ đọc — dùng để rà soát chính tả / nội dung</span>
+</p>
+<a href="/Exam" class="btn btn-outline-secondary mb-3">← Danh sách đề</a>
+<a href="/Exam/Edit/@(ViewContext.RouteData.Values["id"])" class="btn btn-outline-primary mb-3">Sửa đề</a>
+
+@foreach (var item in Model.Items)
+{
+    @if (item.Kind == "passage")
+    {
+        <div class="card mb-3">
+            <div class="card-body bg-light">
+                <div class="small text-muted fw-bold mb-2">BÀI ĐỌC (PART @item.Part)</div>
+                <div style="white-space:pre-wrap;line-height:1.6">@item.PassageText</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="fw-bold mb-2">Câu @item.Number <span class="badge bg-secondary">Part @item.Part</span></div>
+                @if (!string.IsNullOrEmpty(item.Stem))
+                {
+                    <div class="mb-2">@item.Stem</div>
+                }
+                else
+                {
+                    <div class="mb-2 text-muted fst-italic">(Điền vào chỗ trống trong bài đọc)</div>
+                }
+                <ul class="list-unstyled mb-2">
+                    @foreach (var o in item.Options)
+                    {
+                        var correct = o.Key == item.CorrectKey;
+                        <li class="@(correct ? "text-success fw-bold" : "")">
+                            @if (correct) { <span class="badge bg-success me-1">ĐÚNG</span> }
+                            <b>@o.Key.</b> @o.Text
+                        </li>
+                    }
+                </ul>
+                @if (!string.IsNullOrEmpty(item.Hint))
+                {
+                    <div class="small text-muted"><b>Gợi ý:</b> @item.Hint</div>
+                }
+            </div>
+        </div>
+    }
+}
